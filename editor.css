@@ -1,0 +1,20 @@
+.custom-tabs-editor {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.tabs {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+.tabs li {
+  cursor: pointer;
+  padding: 8px 12px;
+  margin-right: 5px;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+.tabs li.active {
+  background: #007cba;
+  color: #fff;
+}

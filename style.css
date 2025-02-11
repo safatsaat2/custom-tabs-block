@@ -1,22 +1,19 @@
-.tabs {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  border-bottom: 2px solid #ddd;
-}
-
-.tabs .tab {
-  padding: 10px 20px;
+.custom-tabs .tab {
   cursor: pointer;
+  padding: 10px;
+  display: inline-block;
   border-bottom: 2px solid transparent;
 }
 
-.tabs .tab.active {
+.custom-tabs .tab.active {
   border-bottom: 2px solid #0073aa;
+  font-weight: bold;
 }
 
-.tab-content {
-  padding: 20px;
-  border: 1px solid #ddd;
-  margin-top: -1px;
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
 }

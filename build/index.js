@@ -150,6 +150,10 @@ __webpack_require__.r(__webpack_exports__);
     tabs: {
       type: "array",
       default: []
+    },
+    activeTab: {
+      type: "number",
+      default: 0
     }
   },
   edit: ({
@@ -157,9 +161,9 @@ __webpack_require__.r(__webpack_exports__);
     setAttributes
   }) => {
     const {
-      tabs
+      tabs = [],
+      activeTab
     } = attributes;
-    const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(0);
     const addTab = () => {
       const newTabs = [...tabs, {
         title: "New Tab",
@@ -184,7 +188,12 @@ __webpack_require__.r(__webpack_exports__);
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
           title: "Tab Settings",
-          children: [tabs.map((tab, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [tabs.length > 0 ? tabs.map((tab, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            style: {
+              marginBottom: "15px",
+              borderBottom: "1px solid #ccc",
+              paddingBottom: "10px"
+            },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
               label: "Tab Title",
               value: tab.title,
@@ -193,7 +202,7 @@ __webpack_require__.r(__webpack_exports__);
               label: "Tab Content",
               value: tab.content,
               onChange: value => updateTab(index, "content", value)
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.MediaUpload, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
               onSelect: media => updateTab(index, "icon", media.url),
               allowedTypes: ["image/svg+xml"],
               render: ({
@@ -210,29 +219,36 @@ __webpack_require__.r(__webpack_exports__);
                 width: "50px"
               }
             })]
-          }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          }, index)) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            children: "No tabs added yet. Click \"Add Tab\" to create one."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
             isSecondary: true,
             onClick: addTab,
             children: "Add Tab"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
-        className: "tabs",
-        children: tabs.map((tab, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
-          className: `tab ${index === activeTab ? "active" : ""}`,
-          onClick: () => setActiveTab(index),
-          children: [tab.icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-            src: tab.icon,
-            alt: tab.title,
-            style: {
-              width: "24px",
-              marginRight: "5px"
-            }
-          }), tab.title]
-        }, index))
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-        className: "tab-content",
-        children: tabs[activeTab] ? tabs[activeTab].content : "Select a tab"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "custom-tabs-editor",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
+          className: "tabs",
+          children: tabs.map((tab, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
+            className: `tab ${index === activeTab ? "active" : ""}`,
+            onClick: () => setAttributes({
+              activeTab: index
+            }),
+            children: [tab.icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+              src: tab.icon,
+              alt: tab.title,
+              style: {
+                width: "24px",
+                marginRight: "5px"
+              }
+            }), tab.title]
+          }, index))
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "tab-content",
+          children: tabs.length > 0 ? tabs[activeTab]?.content || "No content" : "No tabs added yet"
+        })]
       })]
     });
   },
@@ -240,13 +256,15 @@ __webpack_require__.r(__webpack_exports__);
     attributes
   }) => {
     const {
-      tabs
+      tabs = [],
+      activeTab
     } = attributes;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "custom-tabs",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
         className: "tabs",
         children: tabs.map((tab, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
-          className: "tab",
+          className: `tab ${index === activeTab ? "active" : ""}`,
           children: [tab.icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
             src: tab.icon,
             alt: tab.title,
@@ -259,7 +277,7 @@ __webpack_require__.r(__webpack_exports__);
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "tab-content",
         children: tabs.map((tab, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "tab-pane",
+          className: `tab-pane ${index === activeTab ? "active" : ""}`,
           children: tab.content
         }, index))
       })]

@@ -1,0 +1,11 @@
+{
+  "apiVersion": 2,
+  "name": "custom/tabs",
+  "title": "Custom Tabs",
+  "category": "widgets",
+  "icon": "menu",
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./editor.css",
+  "script": "file:./tabs.js",
+  "style": "file:./style.css"
+}
